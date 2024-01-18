@@ -8,12 +8,6 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
- const int ZERO = []()
-{
-	std::ios_base::sync_with_stdio(false);
-	std::cin.tie(nullptr);
-	return 0;
-}();
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
