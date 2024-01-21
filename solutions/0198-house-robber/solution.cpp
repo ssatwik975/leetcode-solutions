@@ -1,20 +1,32 @@
 class Solution {
 public:
-    int here(int n, vector<int> &nums, vector<int> &dp){
-        if(n == 0) return nums[0];
-        if(dp[n] != -1) return dp[n];
-        int pick = nums[n];
-        if(n > 1){
-            pick += here(n-2, nums, dp);
-        }
-        
-        int notpick = here(n-1, nums, dp);
-
-        return dp[n] = max(pick, notpick);
-    }
     int rob(vector<int>& nums) {
+        int sum = 0;
         int n = nums.size();
-        vector<int> dp (n, -1);
-        return here(n-1, nums, dp);
+        vector <int> dp (n);
+        
+        for(int i = 0; i < n; i++){
+            dp[i] = nums[i];
+        }
+
+        for(int i = 2; i<n; i++){
+            int twojump = 0;
+            int threejump = 0;
+             for (int j = 0; j <= i - 2; j++) {
+                twojump = max(twojump, dp[j]);
+            }
+
+            for (int k = 0; k <= i - 3; k++) {
+                threejump = max(threejump, dp[k]);
+            }
+
+
+            dp[i] += max(twojump, threejump);
+        }
+
+
+
+        int ans = *max_element(dp.begin(), dp.end());
+        return ans;
     }
 };
