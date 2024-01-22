@@ -1,6 +1,8 @@
 class Solution {
 public:
     int sumSubarrayMins(vector<int>& arr) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
         const int MOD = 1e9 + 7;
         long long sum = 0;
         int n = arr.size();
