@@ -1,14 +1,20 @@
 class Solution {
 public:
     void rotate(vector<int>& nums, int k) {
-        ios_base::sync_with_stdio(false);
-        cin.tie(NULL);
+        ios::sync_with_stdio(0); cin.tie(0);
+        int size = nums.size();
+        k = k % size;
+        vector<int>rotated(size);
+        int swag = (size-k);
 
-        int n = nums.size();
-        k = k%n;
+        for(int i = 0; i < size; ++i){
+            rotated[i] = nums[(swag+i)%size];
+        }
 
-        reverse(nums.begin(), nums.end());
-        reverse(nums.begin(), nums.begin()+k);
-        reverse(nums.begin()+k, nums.end());
+        for(int i = 0; i < size; ++i){
+            nums[i] = rotated[i];
+        }
+
+
     }
 };
