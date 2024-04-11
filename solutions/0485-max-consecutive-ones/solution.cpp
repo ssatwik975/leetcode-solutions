@@ -1,23 +1,25 @@
+const auto init = [](){
+       std::cin.tie(nullptr);
+       std::cout.tie(nullptr);
+       std::ios_base::sync_with_stdio(false);
+       return nullptr;
+}();
+
 class Solution {
 public:
     int findMaxConsecutiveOnes(vector<int>& nums) {
-        int ans = 0;
-        int lt = 0, rt = 0;
+        
+        int maxcount = 0;
+        int count = 0;
 
-        while (rt != nums.size()) {
-            if (!nums[rt]) {
-                ans = std::max(ans, rt - lt);
-                lt = rt + 1;
+        for (int i = 0; i < nums.size(); ++i){
+            if (nums[i] == 1){
+                count++;
+                maxcount = max(maxcount, count);
+            }else{
+                count = 0;
             }
-            rt++;
         }
-        return std::max(ans, rt - lt);
+        return maxcount;
     }
 };
-
-auto init = []() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    return 'c';
-}();
