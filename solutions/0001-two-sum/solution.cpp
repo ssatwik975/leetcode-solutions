@@ -12,8 +12,9 @@ public:
         unordered_map<int,int> storedIndices;
         for(int idx = 0; idx < nums.size(); idx++){
             int complement = target - nums[idx];
-            if(storedIndices.count(complement)){        
-                return {idx, storedIndices[complement]};
+            if(storedIndices.count(complement)){
+                int mappedIndex = storedIndices[complement];
+                return {idx, mappedIndex};
             }
             storedIndices[nums[idx]] = idx;            
         }
