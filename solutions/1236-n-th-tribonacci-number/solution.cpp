@@ -1,29 +1,19 @@
-const auto init = [](){
-       std::cin.tie(nullptr);
-       std::cout.tie(nullptr);
-       std::ios_base::sync_with_stdio(false);
-       return nullptr;
-}();
-
 class Solution {
 public:
     int tribonacci(int n) {
         if(n == 0) return 0;
         if(n == 1 || n == 2) return 1;
 
-        
-        int one = 0;
-        int two = 1;
-        int three = 1;
-        int curr = 0;
+        vector<int> dp(n + 1, 0);
+        dp[0] = 0;
+        dp[1] = 1;
+        dp[2] = 1;
+
         for(int i = 3; i <= n; i++) {
-            curr = one + two + three;
-            one = two;
-            two = three;
-            three = curr;
+            dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
         }
 
-        return curr;
+        return dp[n];
     }
 };
 
