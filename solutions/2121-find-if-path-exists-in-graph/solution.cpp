@@ -1,4 +1,11 @@
 //can do by usings pairs checking of second is someone else first and putting that in a vector and that way you can find?
+const auto init = [](){
+       std::cin.tie(nullptr);
+       std::cout.tie(nullptr);
+       std::ios_base::sync_with_stdio(false);
+       return nullptr;
+}();
+
 class Solution {
 public:
     int find(int parent[], int x) {
