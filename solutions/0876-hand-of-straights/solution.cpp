@@ -1,28 +1,42 @@
-int speedup = []{ios::sync_with_stdio(0); cin.tie(0); return 0;}();
 class Solution {
 public:
     bool isNStraightHand(vector<int>& hand, int groupSize) {
-        
-        int n = hand.size();
-        if (n % groupSize != 0) return false;
-        if (groupSize == 1) return true;
-
-        unordered_map<int, int> countMap;
-        for (int num : hand) {
-            countMap[num]++;
+        int n=hand.size();
+        if(n%groupSize != 0){
+            return false;
         }
-
-        sort(hand.begin(), hand.end());
-
-        for (int card : hand) {
-            if (countMap[card]) {
-                for (int i = 0; i < groupSize; i++) {
-                    if (countMap[card + i] == 0) return false;
-                    countMap[card + i]--;
+        if(n==1 && groupSize==1){
+            return true;
+        }
+        sort(hand.begin(),hand.end());
+        
+        for(int i=0;i<n;i++){
+            if(hand[i]!=-1){
+                // int k=i;
+                int a=1;
+                int num=hand[i];
+                hand[i]=-1;
+                int j=i+1;
+                while(j<n){   //1 2 2 3 3 4 6 7 8
+                    if(hand[j]==num+1){
+                        num=hand[j];
+                        hand[j]=-1;
+                        j++;
+                        a++;
+                    }
+                    else{
+                        j++;
+                    } 
+                    if(a==groupSize){
+                        j=n;
+                    }
+                }
+                if(a<groupSize){
+                    return false;
                 }
             }
         }
         return true;
     }
+    
 };
-
