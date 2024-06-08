@@ -1,6 +1,7 @@
 class Solution {
 public:
     int minimumTimeToInitialState(string word, int k) {
+        
         int n = word.length();
         int count = 1;
         for(int i = k; i < n; i+=k){
