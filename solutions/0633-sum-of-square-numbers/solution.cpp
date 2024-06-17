@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(nullptr);
+        long left = 0;
+        long right = static_cast<long>(sqrt(c));
+
+        while (left <= right) {
+            long sum = left * left + right * right;
+            if (sum == c) {
+                return true;
+            } else if (sum < c) {
+                ++left;
+            } else {
+                --right;
+            }
+        }
+        return false;
+    }
+};
+
