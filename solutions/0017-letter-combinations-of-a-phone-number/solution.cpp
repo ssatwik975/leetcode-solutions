@@ -1,24 +1,20 @@
-int speedup = []{ios::sync_with_stdio(0); cin.tie(0); return 0;}();
 class Solution {
 public:
-    const vector<string> pad = {"",    "",    "abc",  "def", "ghi",
-                                "jkl", "mno", "pqrs", "tuv", "wxyz"};
-
     vector<string> letterCombinations(string digits) {
-        if (digits.empty())
-            return {};
-        vector<string> result;
-        result.push_back("");
-
-        for (auto digit : digits) {
-            vector<string> tmp;
-            for (auto candidate : pad[digit - '0']) {
-                for (auto s : result) {
-                    tmp.push_back(s + candidate);
-                }
+        if (digits.empty()) return {};
+        vector<string> phone_map = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        vector<string> output;
+        backtrack("", digits, phone_map, output);
+        return output;
+    }
+    void backtrack(string combination, string next_digits, vector<string> phone_map, vector<string>& output) {
+        if (next_digits.empty()) {
+            output.push_back(combination);
+        } else {
+            string letters = phone_map[next_digits[0] - '2'];
+            for (char letter : letters) {
+                backtrack(combination + letter, next_digits.substr(1), phone_map, output);
             }
-            result.swap(tmp);
         }
-        return result;
     }
 };
