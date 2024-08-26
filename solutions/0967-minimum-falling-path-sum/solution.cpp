@@ -1,39 +1,20 @@
 class Solution {
 public:
+    int nomad (vector<vector<int>>&dp,vector<vector<int>>&grid, int r, int c){
+        if(r==0 && c >= 0 && c < grid[0].size()) return grid[r][c];
+        if(c < 0 || c >= grid.size()) return INT_MAX;
+        if(dp[r][c] != INT_MAX) return dp[r][c];
+        return dp[r][c] = grid[r][c] + min(nomad(dp, grid, r-1, c-1), min(nomad(dp, grid, r-1, c), nomad(dp, grid, r-1, c+1)));
+    }
+
     int minFallingPathSum(vector<vector<int>>& matrix) {
-        int row = matrix.size();
-        int col = matrix[0].size();
-
-        vector<vector<int>> dp(row, vector<int>(col, 0));
-
-        for (int i = 0; i < col; i++) {
-            dp[0][i] = matrix[0][i];
+        int r = matrix.size();
+        int c = matrix[0].size();
+        int ans = INT_MAX;
+        vector<vector<int>>dp (r, vector<int>(c,INT_MAX));
+        for(int i = 0; i < r; i++){
+            ans = min(ans, nomad(dp, matrix, r-1, i));
         }
-
-        for (int i = 1; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                int rds = 1e9;
-                int lds = 1e9;
-
-                int up = matrix[i][j] + dp[i - 1][j];
-
-                if (j > 0) {
-                    lds = matrix[i][j] + dp[i - 1][j - 1];
-                }
-
-                if (j < col - 1) {
-                    rds = matrix[i][j] + dp[i - 1][j + 1];
-                }
-
-                dp[i][j] = min(up, min(lds, rds));
-            }
-        }
-
-        int ans = dp[row - 1][0];
-        for (int i = 1; i < col; i++) {
-            ans = min(ans, dp[row - 1][i]);
-        }
-
         return ans;
     }
 };
