@@ -1,9 +1,9 @@
-name: Sync Leetcode
+name: Maintain
 
 on:
   workflow_dispatch:  
   schedule:
-    - cron: "0 8 * * *"  
+    - cron: "0 0 * * 0"  
 
 permissions:
   contents: write
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Sync Leetcode Submissions
+      - name: Work
         uses: joshcai/leetcode-sync@v1.7
         with:
           github-token: ${{ github.token }}  
@@ -21,4 +21,4 @@ jobs:
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}  
           destination-folder: "solutions" 
           verbose: true
-          commit-header: "[Today's Leetcode Solutions]"
+          commit-header: "[Performance]"
