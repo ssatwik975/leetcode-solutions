@@ -1,3 +1,3 @@
-# LeetCode Daily Challenge Solutions
+# LeetCode Problem Solutions
 
-This repository contains my solutions to LeetCode's daily challenges.
+This repository contains my solutions to LeetCode's problems.
