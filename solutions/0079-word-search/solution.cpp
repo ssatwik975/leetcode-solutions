@@ -1,34 +1,29 @@
 class Solution {
 public:
-    bool traverse(vector<vector<char>>& board, string& word, unsigned int stringPos, unsigned int i, unsigned int j) { 
-        if (i < 0 || i >= board.size() || j < 0 || j >= board[0].size()) return false;  
-        if (board[i][j] == '*') return false;
-        if (board[i][j] != word[stringPos]) return false;
-        if (stringPos == word.size() - 1) return true;
-        char ch = board[i][j];
-        board[i][j] = '*';
+    bool dfs(vector<vector<char>>& board, string& word, int i, int j, int k) {
+        if (k == word.size())
+            return true;
+        if (i < 0 || j < 0 || i >= board.size() || j >= board[0].size() ||
+            board[i][j] != word[k])
+            return false;
 
-        bool found = traverse(board, word, stringPos + 1, i + 1, j) ||
-                     traverse(board, word, stringPos + 1, i, j + 1) ||
-                     traverse(board, word, stringPos + 1, i - 1, j) ||
-                     traverse(board, word, stringPos + 1, i, j - 1);
+        char temp = board[i][j];
+        board[i][j] = '$';
 
-        board[i][j] = ch;
+        bool found = dfs(board, word, i + 1, j, k + 1) ||
+                     dfs(board, word, i - 1, j, k + 1) ||
+                     dfs(board, word, i, j + 1, k + 1) ||
+                     dfs(board, word, i, j - 1, k + 1);
+
+        board[i][j] = temp;
         return found;
     }
 
     bool exist(vector<vector<char>>& board, string word) {
-        unsigned int rows = board.size();
-        unsigned int cols = board[0].size();
-
-        for (unsigned int i = 0; i < rows; ++i) {
-            for (unsigned int j = 0; j < cols; ++j) {
-                if (board[i][j] == word[0] && traverse(board, word, 0, i, j)) {
+        for (int i = 0; i < board.size(); i++)
+            for (int j = 0; j < board[0].size(); j++)
+                if (dfs(board, word, i, j, 0))
                     return true;
-                }
-            }
-        }
-
         return false;
     }
 };
